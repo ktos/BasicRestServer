@@ -261,7 +261,7 @@ namespace Ktos.BasicRestServer
         /// Finding a delegate to be run, based on method and path from routes
         /// </summary>
         /// <param name="obj"></param>
-        private void processRequest(System.Net.HttpListenerContext obj)
+        protected virtual void processRequest(System.Net.HttpListenerContext obj)
         {
             ProcessRequest result;
 
@@ -299,8 +299,8 @@ namespace Ktos.BasicRestServer
             }
 
             if (result == null)
-            {                
-                obj.Response.OutputStream.WriteString(String.Format("{0} {1}", obj.Request.HttpMethod, obj.Request.Url.AbsolutePath));
+            {
+                this.showNotFound(obj);
             }
             else
             {
@@ -308,6 +308,18 @@ namespace Ktos.BasicRestServer
             }            
 
             obj.Response.Close();
+        }
+
+        /// <summary>
+        /// Showing Not Found message. This method may be overwritten in descendant classes.
+        /// </summary>
+        /// <param name="obj">Listener context</param>
+        protected virtual void showNotFound(System.Net.HttpListenerContext obj)
+        {
+            obj.Response.ContentType = "text/html";
+            obj.Response.StatusCode = 404;
+            obj.Response.StatusDescription = "Not Found";
+            obj.Response.OutputStream.WriteString("<h1>Requested Document Not Found</h1>");
         }
 
         /// <summary>
