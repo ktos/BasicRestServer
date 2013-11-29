@@ -35,11 +35,19 @@ using System.Threading.Tasks;
 
 namespace Ktos
 {
+    /// <summary>
+    /// Extension methods for built-in classes
+    /// </summary>
     public static class Extensions
     {
-        public static void WriteString(this System.IO.Stream s, string ss)
+        /// <summary>
+        /// A wrapper for writing whole strings into Stream
+        /// </summary>
+        /// <param name="s">A stream to be written into</param>
+        /// <param name="text">Text to be written into stream</param>
+        public static void WriteString(this System.IO.Stream s, string text)
         {
-            var r = Encoding.UTF8.GetBytes(ss);
+            var r = Encoding.UTF8.GetBytes(text);
             s.Write(r, 0, r.Length);
         }
     }
