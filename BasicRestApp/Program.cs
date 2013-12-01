@@ -27,39 +27,14 @@
  */
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ktos.BasicRestServer;
-using System.Text.RegularExpressions;
-
-namespace Ktos.BasicRestServer
+namespace Ktos.RestServer
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            BasicRestServer hs = new BasicRestServer(5);
-            
-            hs.AddRoute("GET", "/test$", ProcessTest);
-            hs.AddRoute("GET", "/(.*)$", ProcessEverything);
-            
-            hs.Start("localhost", 8000);
-        }
-
-        public static void ProcessEverything(System.Net.HttpListenerRequest req, System.Net.HttpListenerResponse res)
-        {
-            res.StatusCode = 404;
-            res.StatusDescription = "Not Found";
-
-            res.OutputStream.WriteString("Not found!");
-        }
-
-        public static void ProcessTest(System.Net.HttpListenerRequest req, System.Net.HttpListenerResponse res)
-        {                        
-            res.OutputStream.WriteString("Hello, world.");            
+            JsonConfigRestServer srs = new JsonConfigRestServer("config.json");
+            srs.Start();
         }
     }
 }

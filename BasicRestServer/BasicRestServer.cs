@@ -36,7 +36,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Ktos.BasicRestServer
+namespace Ktos.RestServer
 {
     /// <summary>
     /// A delegate which is processing a request matching given pattern
