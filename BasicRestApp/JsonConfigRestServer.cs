@@ -247,8 +247,7 @@ namespace Ktos.RestServer
                         default:
                             {
                                 // PUT and DELETE are not supported
-                                writeBadRequest(res);
-
+                                writeBadRequest(res);                                
                                 break;
                             }
                     }
@@ -293,9 +292,12 @@ namespace Ktos.RestServer
         /// <param name="fileName">A file name to be written into</param>
         private void updateFile(Stream s, string fileName)
         {
-            var bodyLength = s.Length;
+            MemoryStream ms = new MemoryStream();
+            s.CopyTo(ms);
+            var bodyLength = ms.Length;
             var buffer = new byte[bodyLength];
-            s.Read(buffer, 0, (int)bodyLength);
+            ms.Seek(0, SeekOrigin.Begin);
+            ms.Read(buffer, 0, (int)bodyLength);
             File.WriteAllBytes(fileName, buffer);
         }
 
