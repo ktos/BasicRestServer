@@ -349,7 +349,7 @@ namespace Ktos.RestServer
             }
             else if (Environment.OSVersion.Platform == PlatformID.Unix)
             {
-                psi = new ProcessStartInfo("sh", String.Format("{0}", parameters));
+                psi = new ProcessStartInfo("/bin/sh", String.Format("-c '{0}'", parameters));
             }
             else
             {
