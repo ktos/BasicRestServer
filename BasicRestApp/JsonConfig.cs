@@ -56,9 +56,14 @@ namespace Ktos.RestServer
         public int MaxThreads { get; set; }
 
         /// <summary>
+        /// Is Verbose/Debug mode enabled
+        /// </summary>
+        public bool IsVerbose { get; set; }
+
+        /// <summary>
         /// List of Routes configuration
         /// </summary>
-        public List<Route> Routes { get; set; }
+        public List<Route> Routes { get; set; }        
 
         /// <summary>
         /// Creates a new JsonConfig instance

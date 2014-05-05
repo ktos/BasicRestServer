@@ -50,12 +50,7 @@ namespace Ktos.RestServer
         /// <summary>
         /// A private instance of BasicRestServer we're building upon
         /// </summary>
-        private BasicRestServer server;
-
-        /// <summary>
-        /// Defines if "verbose" mode should be used
-        /// </summary>
-        public bool IsVerbose { get; set; }
+        private BasicRestServer server;        
 
         /// <summary>
         /// Application entry point, parsing command-line arguments and starting
@@ -64,8 +59,7 @@ namespace Ktos.RestServer
         /// <param name="args"></param>
         public JsonConfigRestServer(string configFilePath)
         {
-            configureServer(configFilePath);
-            this.IsVerbose = false;
+            configureServer(configFilePath);            
         }
 
         /// <summary>
@@ -73,7 +67,7 @@ namespace Ktos.RestServer
         /// </summary>
         public void Start()
         {
-            if (this.IsVerbose)
+            if (config.IsVerbose)
                 Console.WriteLine("Server listening on {0}:{1}", config.Host, config.Port);
 
             server.Start(config.Host, config.Port);
@@ -117,7 +111,7 @@ namespace Ktos.RestServer
             // find route we're on
             var myRoute = config.Routes.Find(x => { Regex r = new Regex(x.Path); return r.IsMatch(req.Url.AbsolutePath) && req.HttpMethod == x.Method; });
 
-            if (this.IsVerbose)
+            if (config.IsVerbose)
                 Console.WriteLine("A new request from {0}: {1} {2}", req.RemoteEndPoint.Address, req.HttpMethod, req.Url.AbsolutePath);
 
             // if response type is defined, set it
@@ -349,7 +343,7 @@ namespace Ktos.RestServer
             }
             else if (Environment.OSVersion.Platform == PlatformID.Unix)
             {
-                psi = new ProcessStartInfo("/bin/sh", String.Format("-c '{0}'", parameters));
+                psi = new ProcessStartInfo("/bin/sh", String.Format("-c {0}", parameters));
             }
             else
             {

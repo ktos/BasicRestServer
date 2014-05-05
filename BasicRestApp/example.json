@@ -2,6 +2,7 @@
 	Host: "localhost",
 	Port: 8000,
 	MaxThreads: 5,
+	IsVerbose: true,
 	Routes:
 		[
 			{
