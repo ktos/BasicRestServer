@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicRestApp", "BasicRestApp\BasicRestApp.csproj", "{48F18930-FE99-4619-B82E-5E67E0C21387}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicRestServer", "BasicRestServer\BasicRestServer.csproj", "{B0E10F36-7082-4064-BAD0-E027E9311476}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicRestServer.Netmf", "BasicRestServer.Netmf\BasicRestServer.Netmf.csproj", "{ADBC9183-E73F-4F7C-A008-F0F46559E343}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{B0E10F36-7082-4064-BAD0-E027E9311476}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0E10F36-7082-4064-BAD0-E027E9311476}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0E10F36-7082-4064-BAD0-E027E9311476}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADBC9183-E73F-4F7C-A008-F0F46559E343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADBC9183-E73F-4F7C-A008-F0F46559E343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADBC9183-E73F-4F7C-A008-F0F46559E343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADBC9183-E73F-4F7C-A008-F0F46559E343}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
