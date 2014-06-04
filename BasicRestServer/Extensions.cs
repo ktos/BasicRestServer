@@ -2,7 +2,7 @@
 /*
  * BasicRestServer
  *
- * Copyright (C) Marcin Badurowicz 2013
+ * Copyright (C) Marcin Badurowicz 2014
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining
