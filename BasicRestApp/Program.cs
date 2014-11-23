@@ -27,7 +27,7 @@
  */
 #endregion
 
-namespace Ktos.RestServer
+namespace Ktos.BasicRestServer
 {
     class Program
     {

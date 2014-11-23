@@ -31,12 +31,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 
-namespace Ktos.RestServer
+namespace Ktos.BasicRestServer
 {
     /// <summary>
     /// A delegate which is processing a request matching given pattern

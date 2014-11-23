@@ -27,10 +27,7 @@
  */
 #endregion
 
-using System;
-using Microsoft.SPOT;
-
-namespace Ktos.RestServer
+namespace BasicRestServer.Netmf
 {
     class Route
     {

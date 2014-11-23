@@ -27,14 +27,15 @@
  */
 #endregion
 
-using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using Ktos.RestServer;
+using Newtonsoft.Json;
 
-namespace Ktos.RestServer
+namespace Ktos.BasicRestServer
 {
     /// <summary>
     /// A simple, JSON-file configured REST-like server allowing access to files 
@@ -50,13 +51,13 @@ namespace Ktos.RestServer
         /// <summary>
         /// A private instance of BasicRestServer we're building upon
         /// </summary>
-        private BasicRestServer server;        
+        private Ktos.BasicRestServer.BasicRestServer server;        
 
         /// <summary>
         /// Application entry point, parsing command-line arguments and starting
         /// server.
         /// </summary>
-        /// <param name="args"></param>
+        /// <param name="configFilePath"></param>
         public JsonConfigRestServer(string configFilePath)
         {
             configureServer(configFilePath);            
@@ -83,7 +84,7 @@ namespace Ktos.RestServer
                 var configText = File.ReadAllText(configFilePath);
                 config = JsonConvert.DeserializeObject<JsonConfig>(configText);
 
-                server = new BasicRestServer(config.MaxThreads);
+                server = new Ktos.BasicRestServer.BasicRestServer(config.MaxThreads);
 
                 foreach (var item in config.Routes)
                 {

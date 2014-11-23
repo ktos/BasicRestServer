@@ -28,13 +28,14 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.Net;
 using System.Net.Sockets;
-using System.Collections;
-using System.Threading;
 using System.Text.RegularExpressions;
+using System.Threading;
+using Ktos;
 
-namespace Ktos.RestServer
+namespace BasicRestServer.Netmf
 {
     public delegate void ProcessRequest(HttpListenerRequest req, HttpListenerResponse res);
 
