@@ -32,6 +32,7 @@
   <ItemGroup>
     <Compile Include="BasicRestServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Properties\AssemblyInfo.template.cs" />
     <Compile Include="Route.cs" />
     <Compile Include="..\BasicRestServer\Extensions.cs" />
   </ItemGroup>
@@ -42,4 +43,9 @@
     <Reference Include="System.Http" />
     <Reference Include="System.Text.RegularExpressions" />
   </ItemGroup>
+  <PropertyGroup>
+    <MSBuildCommunityTasksPath>$(SolutionDir)\.build</MSBuildCommunityTasksPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" />
+  <Import Project="$(MSBuildCommunityTasksPath)\KtosVersion.Targets" />
 </Project>

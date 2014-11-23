@@ -1,4 +1,4 @@
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -22,6 +22,6 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("2685f4c6-8465-46dd-aef0-8f819da236e7")]
 
-[assembly: AssemblyVersion("1.0.1")]
-[assembly: AssemblyFileVersion("1.0.1.0")]
-[assembly: AssemblyInformationalVersion("1.0.1+1.devel.bb6efbb")]
+[assembly: AssemblyVersion("${GfvSemVer}")]
+[assembly: AssemblyFileVersion("${GfvAssemblySemVer}")]
+[assembly: AssemblyInformationalVersion("${GfvFullSemVer}.${GfvBranchName}.${ShortSha}")]
