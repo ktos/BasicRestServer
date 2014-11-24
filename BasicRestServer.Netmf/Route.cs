@@ -29,10 +29,12 @@
 
 namespace BasicRestServer.Netmf
 {
-    class Route
+    public class Route
     {
         public string Method { get; set; }
+
         public string Uri { get; set; }
+
         public ProcessRequest Handler { get; set; }
     }
 }

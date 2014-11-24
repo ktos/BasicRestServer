@@ -128,21 +128,25 @@ namespace Ktos.BasicRestServer
                         routesGet.Add(pathRegExp, processor);
                         break;
                     }
+
                 case "POST":
                     {
                         routesPost.Add(pathRegExp, processor);
                         break;
                     }
+
                 case "PUT":
                     {
                         routesPut.Add(pathRegExp, processor);
                         break;
                     }
+
                 case "DELETE":
                     {
                         routesDelete.Add(pathRegExp, processor);
                         break;
                     }
+
                 default:
                     {
                         break;
@@ -156,10 +160,10 @@ namespace Ktos.BasicRestServer
         /// <param name="host">A host to listen to. "localhost" does not need 
         /// elevated permission under Windows. You can use + or * to bind to
         /// every IP/host in the system</param>
-        /// <param name="port"></param>
+        /// <param name="port">TCP port we will be listening on</param>
         public void Start(string host, int port)
         {
-            _listener.Prefixes.Add(String.Format(@"http://{0}:{1}/", host, port));
+            _listener.Prefixes.Add(string.Format(@"http://{0}:{1}/", host, port));
             _listener.Start();
             _listenerThread.Start();
 
@@ -207,20 +211,13 @@ namespace Ktos.BasicRestServer
         /// <summary>
         /// Handling a new request, part 2
         /// </summary>
-        /// <param name="ar"></param>
+        /// <param name="ar">Handling request</param>
         private void ContextReady(IAsyncResult ar)
         {
-            try
+            lock (_queue)
             {
-                lock (_queue)
-                {
-                    _queue.Enqueue(_listener.EndGetContext(ar));
-                    _ready.Set();
-                }
-            }
-            catch
-            {
-                return;
+                _queue.Enqueue(_listener.EndGetContext(ar));
+                _ready.Set();
             }
         }
 
@@ -229,7 +226,7 @@ namespace Ktos.BasicRestServer
         /// </summary>
         private void Worker()
         {
-            WaitHandle[] wait = new[] { _ready, _stop };
+            WaitHandle[] wait = { _ready, _stop };
             while (0 == WaitHandle.WaitAny(wait))
             {
                 HttpListenerContext context;
@@ -258,8 +255,8 @@ namespace Ktos.BasicRestServer
         /// <summary>
         /// Finding a delegate to be run, based on method and path from routes
         /// </summary>
-        /// <param name="obj"></param>
-        protected virtual void processRequest(System.Net.HttpListenerContext obj)
+        /// <param name="obj">HttpListenerContext which will be processed</param>
+        protected virtual void processRequest(HttpListenerContext obj)
         {
             ProcessRequest result;
 
@@ -298,12 +295,12 @@ namespace Ktos.BasicRestServer
 
             if (result == null)
             {
-                this.showNotFound(obj);
+                showNotFound(obj);
             }
             else
             {
                 result(obj.Request, obj.Response);
-            }            
+            }
 
             obj.Response.Close();
         }
@@ -312,7 +309,7 @@ namespace Ktos.BasicRestServer
         /// Showing Not Found message. This method may be overwritten in descendant classes.
         /// </summary>
         /// <param name="obj">Listener context</param>
-        protected virtual void showNotFound(System.Net.HttpListenerContext obj)
+        protected virtual void showNotFound(HttpListenerContext obj)
         {
             obj.Response.ContentType = "text/html";
             obj.Response.StatusCode = 404;
@@ -325,7 +322,7 @@ namespace Ktos.BasicRestServer
         /// </summary>
         /// <param name="obj">Absolute path from HttpListenerContext</param>
         /// <returns>Returns if specified predicate's RegExp matches path</returns>
-        private static Func<KeyValuePair<string, ProcessRequest>, bool> findRoute(System.Net.HttpListenerContext obj)
+        private static Func<KeyValuePair<string, ProcessRequest>, bool> findRoute(HttpListenerContext obj)
         {
             return x => { Regex r = new Regex(x.Key); return r.IsMatch(obj.Request.Url.AbsolutePath); };
         }

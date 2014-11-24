@@ -43,12 +43,10 @@ namespace BasicRestServer.Netmf
     {
         private ArrayList routes;
 
-        const int BUFFER_SIZE = 1024;        
-
         public BasicRestServer()
         {
             routes = new ArrayList();
-            m_responseQueue = new Queue();
+            responseQueue = new Queue();
         }
 
         public void AddRoute(string method, string pathRegExp, ProcessRequest processor)
@@ -62,9 +60,9 @@ namespace BasicRestServer.Netmf
 
             try
             {
-                lock (m_responseQueue)
+                lock (responseQueue)
                 {
-                    context = (HttpListenerContext)m_responseQueue.Dequeue();
+                    context = (HttpListenerContext)responseQueue.Dequeue();
                 }
 
                 if (context != null)
@@ -88,8 +86,8 @@ namespace BasicRestServer.Netmf
         {
             for (int i = 0; i < routes.Count; i++)
             {
-                Route x = routes[i] as Route;
-                if (context.Request.HttpMethod.ToUpper() == x.Method.ToUpper())
+                Route x = (Route)routes[i];
+                if (x.Method != null && context.Request.HttpMethod.ToUpper() == x.Method.ToUpper())
                 {
                     Regex r = new Regex(x.Uri);
                     if (r.IsMatch(context.Request.RawUrl))
@@ -107,7 +105,7 @@ namespace BasicRestServer.Netmf
         /// Showing Not Found message. This method may be overwritten in descendant classes.
         /// </summary>
         /// <param name="obj">Listener context</param>
-        protected virtual void showNotFound(System.Net.HttpListenerContext obj)
+        protected virtual void showNotFound(HttpListenerContext obj)
         {
             obj.Response.ContentType = "text/html";
             obj.Response.StatusCode = 404;
@@ -115,8 +113,8 @@ namespace BasicRestServer.Netmf
             obj.Response.OutputStream.WriteString("<h1>Requested Document Not Found</h1>");
         }
 
-        Queue m_responseQueue;
-        HttpListener listener;
+        private Queue responseQueue;
+        private HttpListener listener;
 
         public void Start(string prefix, int port)
         {
@@ -132,12 +130,12 @@ namespace BasicRestServer.Netmf
                     }
 
                     HttpListenerContext context = listener.GetContext();
-                    lock (m_responseQueue)
+                    lock (responseQueue)
                     {
-                        m_responseQueue.Enqueue(context);
+                        responseQueue.Enqueue(context);
                     }
 
-                    Thread th = new Thread(new ThreadStart(handleRequestThread));
+                    Thread th = new Thread(handleRequestThread);
                     th.Start();
                 }
                 catch (InvalidOperationException)
@@ -159,7 +157,6 @@ namespace BasicRestServer.Netmf
         public void Stop()
         {
             listener.Stop();
-        }
-        
+        }        
     }
 }
