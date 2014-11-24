@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <UsingTask
+    TaskName="GitVersionTask.GetVersion"
+    AssemblyFile="$(SolutionDir)packages\Ktos.Build.GitVersion.1.0.0\GitVersionTask.dll"  />
+
+  <Target Name="Version" BeforeTargets="BeforeBuild">
+    <GetVersion SolutionDirectory="$(SolutionDir)">
+      <Output TaskParameter="Major" PropertyName="GfvMajor" />
+      <Output TaskParameter="Minor" PropertyName="GfvMinor" />
+      <Output TaskParameter="Patch" PropertyName="GfvPatch" />
+      <Output TaskParameter="BuildMetaData" PropertyName="GfvBuildMetaData" />
+      <Output TaskParameter="FullBuildMetaData" PropertyName="GfvFullBuildMetaData" />
+      <Output TaskParameter="BranchName" PropertyName="GfvBranchName" />
+      <Output TaskParameter="Sha" PropertyName="GfvSha" />
+      <Output TaskParameter="MajorMinorPatch" PropertyName="GfvMajorMinorPatch" />
+      <Output TaskParameter="SemVer" PropertyName="GfvSemVer" />
+      <Output TaskParameter="LegacySemVer" PropertyName="GfvLegacySemVer" />
+      <Output TaskParameter="LegacySemVerPadded" PropertyName="GfvLegacySemVerPadded" />
+      <Output TaskParameter="FullSemVer" PropertyName="GfvFullSemVer" />
+      <Output TaskParameter="AssemblySemVer" PropertyName="GfvAssemblySemVer" />
+      <Output TaskParameter="NuGetVersion" PropertyName="GfvNuGetVersion" />
+      <Output TaskParameter="ClassicVersion" PropertyName="GfvClassicVersion" />
+      <Output TaskParameter="ClassicVersionWithTag" PropertyName="GfvClassicVersionWithTag" />
+      <Output TaskParameter="PreReleaseTag" PropertyName="GfvPreReleaseTag" />
+      <Output TaskParameter="PreReleaseTagWithDash" PropertyName="GfvPreReleaseTagWithDash" />
+      <Output TaskParameter="InformationalVersion" PropertyName="GfvInformationalVersion" />
+    </GetVersion>
+
+    <GitVersion LocalPath="$(MSBuildProjectDirectory)">
+      <Output TaskParameter="CommitHash" PropertyName="ShortSha" />
+    </GitVersion>
+
+    <ItemGroup>
+      <Tokens Include="ShortSha">
+        <ReplacementValue>$(ShortSha)</ReplacementValue>
+      </Tokens>
+      <Tokens Include="GfvMajor">
+        <ReplacementValue>$(GfvMajor)</ReplacementValue>
+      </Tokens>
+      <Tokens Include="GfvMinor">
+        <ReplacementValue>$(GfvMinor)</ReplacementValue>
+      </Tokens>
+      <Tokens Include="GfvPatch">
+        <ReplacementValue>$(GfvPatch)</ReplacementValue>
+      </Tokens>
+      <Tokens Include="GfvBuildMetaData">
+        <ReplacementValue>$(GfvBuildMetaData)</ReplacementValue>
+      </Tokens>
+      <Tokens Include="GfvFullBuildMetaData">
+        <ReplacementValue>$(GfvFullBuildMetaData)</ReplacementValue>
+      </Tokens>
+      <Tokens Include="GfvBranchName">
+        <ReplacementValue>$(GfvBranchName)</ReplacementValue>
+      </Tokens>
+      <Tokens Include="GfvSha">
+        <ReplacementValue>$(GfvSha)</ReplacementValue>
+      </Tokens>
+      <Tokens Include="GfvMajorMinorPatch">
+        <ReplacementValue>$(GfvMajorMinorPatch)</ReplacementValue>
+      </Tokens>
+      <Tokens Include="GfvSemVer">
+        <ReplacementValue>$(GfvSemVer)</ReplacementValue>
+      </Tokens>
+      <Tokens Include="GfvLegacySemVer">
+        <ReplacementValue>$(GfvLegacySemVer)</ReplacementValue>
+      </Tokens>
+      <Tokens Include="GfvLegacySemVerPadded">
+        <ReplacementValue>$(GfvLegacySemVerPadded)</ReplacementValue>
+      </Tokens>
+      <Tokens Include="GfvFullSemVer">
+        <ReplacementValue>$(GfvFullSemVer)</ReplacementValue>
+      </Tokens>
+      <Tokens Include="GfvAssemblySemVer">
+        <ReplacementValue>$(GfvAssemblySemVer)</ReplacementValue>
+      </Tokens>
+      <Tokens Include="GfvNuGetVersion">
+        <ReplacementValue>$(GfvNuGetVersion)</ReplacementValue>
+      </Tokens>
+      <Tokens Include="GfvClassicVersion">
+        <ReplacementValue>$(GfvClassicVersion)</ReplacementValue>
+      </Tokens>
+      <Tokens Include="GfvClassicVersionWithTag">
+        <ReplacementValue>$(GfvClassicVersionWithTag)</ReplacementValue>
+      </Tokens>
+      <Tokens Include="GfvPreReleaseTag">
+        <ReplacementValue>$(GfvPreReleaseTag)</ReplacementValue>
+      </Tokens>
+      <Tokens Include="GfvPreReleaseTagWithDash">
+        <ReplacementValue>$(GfvPreReleaseTagWithDash)</ReplacementValue>
+      </Tokens>
+      <Tokens Include="GfvInformationalVersion">
+        <ReplacementValue>$(GfvInformationalVersion)</ReplacementValue>
+      </Tokens>
+    </ItemGroup>
+
+    <TemplateFile Template="Properties\AssemblyInfo.template.cs" OutputFilename="AssemblyInfo.cs" Tokens="@(Tokens)" />
+
+  </Target>
+</Project>
