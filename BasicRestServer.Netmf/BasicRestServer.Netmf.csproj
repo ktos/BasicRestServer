@@ -32,6 +32,7 @@
   <ItemGroup>
     <Compile Include="BasicRestServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="packages.config" />
     <None Include="Properties\AssemblyInfo.template.cs" />
     <Compile Include="Route.cs" />
     <Compile Include="..\BasicRestServer\Extensions.cs" />
@@ -47,5 +48,5 @@
     <MSBuildCommunityTasksPath>$(SolutionDir)\.build</MSBuildCommunityTasksPath>
   </PropertyGroup>
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" />
-  <Import Project="$(MSBuildCommunityTasksPath)\KtosVersion.Targets" />
+  <Import Project="$(MSBuildCommunityTasksPath)\Ktos.Build.GitVersion.Targets" />
 </Project>
